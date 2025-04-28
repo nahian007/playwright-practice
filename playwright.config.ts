@@ -36,7 +36,10 @@ export default defineConfig({
     screenshot: 'only-on-failure',
 
     // Record video only when retrying a test for the first time.
-    video: 'on-first-retry'
+    video: 'on-first-retry',
+
+    viewport: null,
+    launchOptions: { args: ['--start-maximized'] }
   },
 
   /* Configure projects for major browsers */

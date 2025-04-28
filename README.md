@@ -34,6 +34,6 @@ Example: npx playwright test productSearch.spec.ts
 **To disable parallel execution**
 ```bash
 npx playwright test --workers=1
-Example: px playwright test productSearch.spec.ts --workers=1
+Example: npx playwright test productSearch.spec.ts --workers=1
 ```
 
