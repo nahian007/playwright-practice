@@ -30,7 +30,7 @@ test('Filter Product', async ({ page }) => {
 
       const titleText = await titleElement.textContent();
       //console.log(titleText);
-      await expect(titleElement).toHaveText((/|iPhone/i));
+      await expect(titleElement).toHaveText((/Apple|iPhone/i));
 
       
     }
