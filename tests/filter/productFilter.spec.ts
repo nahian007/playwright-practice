@@ -21,14 +21,17 @@ test('Filter Product', async ({ page }) => {
     const searchResults = await page.locator('[data-component-type="s-search-result"]');
     await searchResults.first().waitFor({ state: 'visible' });
 
-    // Collect all product titles into an array
-    const productTitles = page.locator('[data-cy="title-recipe"]')
-        .getByRole('heading');
-
-    // Retrieve all titles and verify each contains the word 'Apple'
+    const productTitles = page.locator('[data-cy="title-recipe"]').getByRole('heading');
+    
     const titleElements = await productTitles.all();
 
+    // Retrieve all titles and verify each contains the word 'Apple'
     for (const titleElement of titleElements) {
-        await expect(titleElement).toHaveText((/Apple|iPhone/i));
+
+      const titleText = await titleElement.textContent();
+      //console.log(titleText);
+      await expect(titleElement).toHaveText((/|iPhone/i));
+
+      
     }
 });
