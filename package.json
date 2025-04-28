@@ -1,0 +1,22 @@
+{
+  "name": "playwright-practice",
+  "version": "1.0.0",
+  "description": "Some Basic PlayGround with Playwright",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nahian007/playwright-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nahian007/playwright-practice/issues"
+  },
+  "homepage": "https://github.com/nahian007/playwright-practice#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.14.1"
+  }
+}
