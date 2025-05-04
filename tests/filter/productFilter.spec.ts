@@ -5,17 +5,19 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('Filter Product', async ({ page }) => {
-    await page.locator('#nav-xshop-container').getByRole('link', { name: 'Mobiles' }).click();
-    await page.waitForTimeout(5000);
-
-    const firstBrand = page.locator('.a-section [aria-labelledby="p_123-title"]').getByRole('listitem').nth(0);
-    const brandValue = await firstBrand.textContent();
-    await firstBrand.getByRole('checkbox').check({ force: true });
-
-    await page.waitForTimeout(1000);
+  
+  const brandName = 'Samsung';
+  await page.locator('#nav-xshop-container').getByRole('link', { name: 'Mobiles' }).click();
+  await page.waitForTimeout(5000);
+  
+  const selectedBrand = page.locator('.a-section [aria-labelledby="p_123-title"]').getByRole('listitem').filter({ hasText: brandName });
+  await selectedBrand.scrollIntoViewIfNeeded();
+  await selectedBrand.getByRole('link', { name: brandName }).click();
+      
+    //await page.waitForTimeout(1000);
 
     const firstSeller = page.locator('.a-section [aria-labelledby="p_6-title"]').getByRole('listitem').first();
-    const sellerValue = await firstBrand.textContent();
+    //const sellerValue = await firstBrand.textContent();
     await firstSeller.getByRole('checkbox').check({ force: true });
 
     const searchResults = await page.locator('[data-component-type="s-search-result"]');
@@ -25,13 +27,11 @@ test('Filter Product', async ({ page }) => {
     
     const titleElements = await productTitles.all();
 
-    // Retrieve all titles and verify each contains the word 'Apple'
+    // Retrieve all titles and verify each contains the word 'Samsung'
     for (const titleElement of titleElements) {
 
       const titleText = await titleElement.textContent();
-      //console.log(titleText);
-      await expect(titleElement).toHaveText((/Apple|iPhone/i));
+      await expect(titleElement).toHaveText(new RegExp(brandName, 'i'));
 
-      
     }
 });
