@@ -58,7 +58,6 @@ test('Search multiple products and extract details', async ({ page }) => {
 });
 
 // Close the browser after all tests
-
 test.afterAll(async () => {
   await globalBrowser.close();
 });
