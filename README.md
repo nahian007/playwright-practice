@@ -37,3 +37,9 @@ npx playwright test --workers=1
 Example: npx playwright test productSearch.spec.ts --workers=1
 ```
 
+**Passing Environment Variables**
+```bash
+Example: filterKey=Mobiles brandName=Redmi npx playwright test parameterizedFilter.spec.ts --headed
+Example: filterKey=Mobiles brandName=Samsung npx playwright test parameterizedFilter.spec.ts --headed
+```
+
