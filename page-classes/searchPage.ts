@@ -18,20 +18,36 @@ export class searchPage {
   async searchProduct(productName: string) {
     await this.searchInput.click();
     await this.searchInput.fill(productName);
-    await this.page.locator('.autocomplete-results-container #sac-suggestion-row-1').click();
+    await this.page.locator('.autocomplete-results-container #sac-suggestion-row-1').click({timeout: 10000});
   }
 
   async getProducts(count: number) {
     await this.searchResults.first().waitFor({ state: 'visible' });
 
-    const productDetails: { productTitle: string | null; productDescription: string | null; productPrice: string | null }[] = [];
+    const productDetails: {
+      productTitle: string | null;
+      productDescription: string | null;
+      productPrice: string | null;
+    }[] = [];
 
     for (let i = 0; i < count; i++) {
       const productItem = this.searchResults.nth(i);
 
-      const productTitle = await productItem.locator('[data-cy="title-recipe"]').getByRole('heading').first().textContent();
-      const productDescription = await productItem.locator('[data-cy="title-recipe"]').getByRole('heading').nth(1).textContent();
-      const productPrice = await productItem.locator('[data-cy="price-recipe"] [aria-describedby="price-link"] .a-price-whole').textContent();
+      const productTitle = await productItem
+        .locator('[data-cy="title-recipe"]')
+        .getByRole('heading')
+        .first()
+        .textContent();
+
+      const productDescription = await productItem
+        .locator('[data-cy="title-recipe"]')
+        .getByRole('heading')
+        .nth(1)
+        .textContent();
+
+      const productPrice = await productItem
+        .locator('[data-cy="price-recipe"] [aria-describedby="price-link"] .a-price-whole')
+        .textContent();
 
       productDetails.push({ productTitle, productDescription, productPrice });
     }
