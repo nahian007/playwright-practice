@@ -4,6 +4,7 @@ const path = require('path');
 const csvParser = require('csv-parser');
 
 const projectRoot = path.resolve(__dirname, './');
+//const projectRoot = __dirname;
 
 async function parseCSV(csvFilePath) {
   const fullPath = path.join(projectRoot, csvFilePath);
