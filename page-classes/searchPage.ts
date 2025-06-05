@@ -27,7 +27,8 @@ export class searchPage {
     const productDetails: {
       productTitle: string | null;
       productDescription: string | null;
-      productPrice: string | null;
+      //productPrice: string | null;
+      reviewCount: string | null;
     }[] = [];
 
     for (let i = 0; i < count; i++) {
@@ -45,11 +46,17 @@ export class searchPage {
         .nth(1)
         .textContent();
 
-      const productPrice = await productItem
+      /*const productPrice = await productItem
         .locator('[data-cy="price-recipe"] [aria-describedby="price-link"] .a-price-whole')
+        .textContent();*/
+
+      const reviewCount = await productItem
+        .getByRole('link', { name: /ratings$/ }) // regex: ends with 'ratings'
+        .locator('span.a-size-base.s-underline-text')
+        .first()
         .textContent();
 
-      productDetails.push({ productTitle, productDescription, productPrice });
+      productDetails.push({ productTitle, productDescription, reviewCount });
     }
 
     return productDetails;
