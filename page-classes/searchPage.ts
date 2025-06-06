@@ -61,4 +61,12 @@ export class searchPage {
 
     return productDetails;
   }
+
+  async runSearchTest(keyword: string, count: number, testCase: string) {
+    await this.navigate();
+    await this.searchProduct(keyword);
+    const results = await this.getProducts(count);
+    console.log(`(${testCase}) Results for "${keyword}":`);
+    console.log(results);
+  }
 }

@@ -23,13 +23,7 @@ const filteredSearchItems = allSearchItems.filter(item =>
 // Generate one test per CSV row
 for (const { keyword, count, testCase } of filteredSearchItems) {
   test(`(${testCase}) Search for "${keyword}" and get top ${count} results`, async ({ page }) => {
-    const productSearchOption = new searchPage(page);
-
-    await productSearchOption.navigate();
-    await productSearchOption.searchProduct(keyword);
-    const productDetails = await productSearchOption.getProducts(Number(count));
-
-    console.log(`(${testCase}) Results for "${keyword}":`);
-    console.log(productDetails);
+    const productSearch = new searchPage(page);
+    await productSearch.runSearchTest(keyword, Number(count), testCase);
   });
 }
