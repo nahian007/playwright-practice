@@ -43,3 +43,13 @@ Example: filterKey=Mobiles brandName=Redmi npx playwright test parameterizedFilt
 Example: filterKey=Mobiles brandName=Samsung npx playwright test parameterizedFilter.spec.ts --headed
 ```
 
+**Preparing test data**
+```bash
+Template: Execution='Regression' node testSetup.js [masterfile_csv_path]
+Example: Execution='Regression' node testSetup.js ./tests/search/searchProduct.csv
+```
+
+**To run the test with one worker**
+```bash
+npx playwright test --workers=1 ./tests/search/searchProduct.spec.ts --headed  
+```
