@@ -1,0 +1,4 @@
+testCase,testGroup,Execution
+search_001,searchProduct,"Regression,Smoke"
+search_002,searchProduct,Regression
+search_003,searchProduct,Regression
