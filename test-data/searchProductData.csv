@@ -1,3 +1,4 @@
-testCase,keyword,count
-search_001,Kurti for Women,3
-search_002,shoes for man stylish,5
+testCase,keyword,count,expectedKeyword,validationType
+search_001,Kurti for Women,3,,fetch
+search_002,shoes for man stylish,5,,fetch
+search_003,Kurta,0,Kurta,descriptionCheck

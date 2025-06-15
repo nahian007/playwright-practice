@@ -6,24 +6,34 @@ import testData from '../../fixtures/testData.json';
 
 // 1. Load master data (test case IDs to run)
 const masterData = testData as unknown as { data: Record<string, string[]> };
-const testCasesToRun = masterData.data.searchProduct; // e.g., ["search_001", "search_002"]
+const testCasesToRun = masterData.data.searchProduct;
 
+// 2. Load all rows from CSV
+const csvFilePath = path.join(__dirname, '../../test-data/searchProductData.csv');
+const allSearchItems: {
+  testCase: string;
+  keyword: string;
+  count: string;
+  expectedKeyword?: string;
+  validationType?: string;
+}[] = readCSV(csvFilePath);
 
-// 2. Load all rows from slave/test data
-const csvFilePath = path.join(__dirname, '../../test-data/SearchProductData.csv');
-const allSearchItems: { testCase: string; keyword: string; count: string }[] = readCSV(csvFilePath);
-//const searchItems: { keyword: string; count: string }[] = readCSV(csvFilePath);
-
-// 3. Filter only test cases listed in masterData
+// 3. Filter test cases to run
 const filteredSearchItems = allSearchItems.filter(item =>
   testCasesToRun.includes(item.testCase)
 );
 
+// 4. Dynamically create tests
+for (const { testCase, keyword, count, expectedKeyword, validationType } of filteredSearchItems) {
+  test(`(${testCase}) ${validationType === 'titleCheck' ? 'Title check' : 'Search'} for "${keyword}"`, async ({ page }) => {
+    const productSearchOption = new searchPage(page);
 
-// Generate one test per CSV row
-for (const { keyword, count, testCase } of filteredSearchItems) {
-  test(`(${testCase}) Search for "${keyword}" and get top ${count} results`, async ({ page }) => {
-    const productSearch = new searchPage(page);
-    await productSearch.runSearchTest(keyword, Number(count), testCase);
+    await productSearchOption.runSearchTest({
+      keyword,
+      count: Number(count),
+      expectedKeyword,
+      validationType,
+      testCase,
+    });
   });
 }
